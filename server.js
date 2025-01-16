@@ -4,7 +4,7 @@
 *  No part of this assignment has been copied manually or electronically from any other source
 *  (including web sites) or distributed to other students.
 * 
-*  Name: Hanson Chieu Student ID: 173632233 Date: ________________
+*  Name: Hanson Chieu Student ID: 173632233 Date: January 16, 2025
 *  Vercel Link: _______________________________________________________________
 *
 ********************************************************************************/ 
@@ -13,6 +13,7 @@
 const express = require('express');
 const app = express();
 const cors = require('cors');
+const serverless = require('serverless-http');
 require('dotenv').config();
 const MoviesDB = require("./modules/moviesDB.js")
 const db = new MoviesDB();
@@ -21,7 +22,7 @@ const db = new MoviesDB();
 const HTTP_PORT = process.env.PORT || 8080;
 
 app.use(cors());
-app.use(express.json({ limit: '10mb' }));   
+app.use(express.json());   
 
 app.get('/', (req, res) => {
     res.json({message:"API Listening"})
@@ -75,3 +76,5 @@ db.initialize(process.env.MONGODB_CONN_STRING).then(()=>{
 }).catch((err)=>{
     console.log("Failed to initialize database:",err);
 });
+
+module.exports.handler = serverless(app);
