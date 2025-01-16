@@ -13,7 +13,6 @@
 const express = require('express');
 const app = express();
 const cors = require('cors');
-const serverless = require('serverless-http');
 require('dotenv').config();
 const MoviesDB = require("./modules/moviesDB.js")
 const db = new MoviesDB();
@@ -76,5 +75,3 @@ db.initialize(process.env.MONGODB_CONN_STRING).then(()=>{
 }).catch((err)=>{
     console.log("Failed to initialize database:",err);
 });
-
-module.exports.handler = serverless(app);
