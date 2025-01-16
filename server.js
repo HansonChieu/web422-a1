@@ -68,10 +68,13 @@ app.delete('/api/movies/:id', (req, res) => {
     });
 });
 
-db.initialize(process.env.MONGODB_CONN_STRING).then(()=>{
-    app.listen(HTTP_PORT, ()=>{
-        console.log(`server listening on: ${HTTP_PORT}`);
+
+module.exports = (req, res) => {
+    db.initialize(process.env.MONGODB_CONN_STRING).then(()=>{
+        app.listen(HTTP_PORT, ()=>{
+            console.log(`server listening on: ${HTTP_PORT}`);
+        });
+    }).catch((err)=>{
+        console.log("Failed to initialize database:",err);
     });
-}).catch((err)=>{
-    console.log("Failed to initialize database:",err);
-});
+};
